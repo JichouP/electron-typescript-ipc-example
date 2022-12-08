@@ -33,5 +33,7 @@ console.log(
 );
 console.log(window.myAPI);
 
-window.myAPI.on.showAlert(console.log);
-window.myAPI.invoke.getDataFromStore('hoge').then(console.log);
+window.myAPI.on.showAlert((_, str) => alert(str));
+window.myAPI.on.printNumber((_, num) => console.log(num));
+window.myAPI.invoke.twiceNumber(1).then(console.log);
+window.myAPI.invoke.repeatString('string').then(console.log);

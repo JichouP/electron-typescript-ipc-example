@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
-    "electron-typescript-ipc": "file:../electron-typescript-ipc"
+    "electron-typescript-ipc": "^3.0.0"
   }
 }

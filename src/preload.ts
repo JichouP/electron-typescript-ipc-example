@@ -2,28 +2,38 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import {
   contextBridge,
-  ipcRenderer,
+  createIpcRenderer,
   GetApiType,
 } from 'electron-typescript-ipc';
 
+const ipcRenderer = createIpcRenderer<Api>();
+
 export type Api = GetApiType<
   {
-    getDataFromStore: (str: string) => Promise<string>;
+    twiceNumber: (num: number) => Promise<number>;
+    repeatString: (str: string) => Promise<string>;
   },
   {
     showAlert: (text: string) => Promise<void>;
+    printNumber: (num: number) => Promise<void>;
   }
 >;
 
 const api: Api = {
   invoke: {
-    getDataFromStore: async (key: string) => {
-      return await ipcRenderer.invoke<Api>('getDataFromStore', key);
+    twiceNumber: async (num: number) => {
+      return await ipcRenderer.invoke('twiceNumber', num);
+    },
+    repeatString: async (str: string) => {
+      return await ipcRenderer.invoke('repeatString', str);
     },
   },
   on: {
     showAlert: (listener) => {
-      ipcRenderer.on<Api>('showAlert', listener);
+      ipcRenderer.on('showAlert', listener);
+    },
+    printNumber: (listener) => {
+      ipcRenderer.on('printNumber', listener);
     },
   },
 };
